@@ -1,0 +1,29 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>Balloon Order page - Welcome and choose a Balloon</title>
+    <style type="text/css">
+        body {
+            width: 800px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Welcome to our Balloon Shop App</h1>
+</header>
+<main>
+    <h2>Choose balloon color:</h2>
+   <form th:method="POST" th:action="@{/listBalloons}">
+    <ul th:each="balloon: ${balloons}">
+        <input type="radio" name="color" th:text="${balloon.name} +' '+ ${balloon.description} +' '+ ${balloon.manufacturer.getName()}" th:value="${balloon.name}">
+        <a th:href="@{'/balloons/edit-form/{id}' (id = ${balloon.getId()})}">Edit</a>
+        <a th:href="@{'/balloons/delete/{id}' (id = ${balloon.getId()})}">Delete</a>
+    </ul>
+       <input type="submit">
+   </form>
+    <a th:href="@{/balloons/add-form}">Add new Balloon</a>
+</main>
+</body>
+</html>

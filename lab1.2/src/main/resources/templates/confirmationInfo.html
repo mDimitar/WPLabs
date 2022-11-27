@@ -1,0 +1,69 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="utf-8">
+  <title>WP lab - Confirmation Info</title>
+  <style type="text/css">
+    body {
+      width: 800px;
+      margin: auto;
+    }
+    table {
+      width:100%;
+    }
+    table, td, th {
+      border: 1px solid black;
+      padding: 3px 2px;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <header>
+    <h1>Balloon Order page - Order confirmation </h1>
+  </header>
+  <form th:method="POST" th:action="@{/ConfirmationInfo}">
+  <table>
+    <tr>
+      <th colspan="2">
+        Your Order Status
+      </th>
+    </tr>
+    <tr>
+      <td><b>Client Name </b></td>
+      <td th:text="${session.clName}"></td>
+    </tr>
+    <tr>
+      <td><b>Client Address </b></td>
+      <td th:text="${session.clAddress}"></td>
+    </tr>
+    <tr>
+      <td><b>Client IP Address</b></td>
+      <td th:text="${session.clientIPAddress}"></td>
+    </tr>
+    <tr>
+      <td><b>Client Browser</b></td>
+      <td th:text="${session.clientBrowser}"></td>
+    </tr>
+    <tr>
+      <td><b>Balloon Color </b></td>
+      <td th:text="${session.value}"></td>
+    </tr>
+    <tr>
+      <td><b>Balloon Size </b></td>
+      <td th:text="${session.size}"></td>
+    </tr>
+  </table>
+    <input type="submit" value="Log Out">
+  </form>
+  <div>
+
+    <form th:action="@{/orders}" th:method="post">
+      <input type="submit" value="List All Orders">
+    </form>
+
+  </div>
+
+
+</section>
+</body>
+</html>
