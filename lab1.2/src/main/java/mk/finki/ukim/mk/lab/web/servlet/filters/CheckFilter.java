@@ -32,6 +32,7 @@ public class CheckFilter implements Filter {
             //System.out.println(color);
             filterChain.doFilter(servletRequest, servletResponse);
         } else {
+            //System.out.println("called filter");
             resp.sendRedirect("");
         }
 

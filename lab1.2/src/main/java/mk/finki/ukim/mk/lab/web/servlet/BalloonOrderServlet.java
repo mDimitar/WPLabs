@@ -1,6 +1,7 @@
 package mk.finki.ukim.mk.lab.web.servlet;
 
 import mk.finki.ukim.mk.lab.service.OrderService;
+import mk.finki.ukim.mk.lab.service.implementations.OrderServiceImplementation;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 
@@ -15,9 +16,9 @@ import java.io.IOException;
 public class BalloonOrderServlet extends HttpServlet {
 
     private final SpringTemplateEngine springTemplateEngine;
-    private final OrderService orderService;
+    private final OrderServiceImplementation orderService;
 
-    public BalloonOrderServlet(SpringTemplateEngine springTemplateEngine, OrderService orderService){
+    public BalloonOrderServlet(SpringTemplateEngine springTemplateEngine, OrderServiceImplementation orderService){
         this.springTemplateEngine = springTemplateEngine;
         this.orderService = orderService;
     }
@@ -30,8 +31,13 @@ public class BalloonOrderServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String color = (String) req.getSession().getAttribute("value");
+        String size = (String) req.getSession().getAttribute("size");
+
         String clientName = (String)req.getParameter("clientName");
         String clientAddress = (String)req.getParameter("clientAddress");
+
+        orderService.placeOrder(color,clientName,clientAddress,size);
 
         String clientIPAddress = (String) req.getRemoteAddr();
         String clientBrowser = (String) req.getHeader("User-Agent");
@@ -41,9 +47,6 @@ public class BalloonOrderServlet extends HttpServlet {
         req.getSession().setAttribute("clientIPAddress",clientIPAddress);
         req.getSession().setAttribute("clientBrowser",clientBrowser);
 
-        orderService.placeOrder((String)req.getSession().getAttribute("balloonColor"),
-                (String)req.getSession().getAttribute("clientName"),
-                (String)req.getSession().getAttribute("address"));
 
         resp.sendRedirect("/ConfirmationInfo");
     }

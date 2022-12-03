@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 import java.util.List;
-
-//**
 
 @Controller
 public class BalloonController {
@@ -69,8 +68,12 @@ public class BalloonController {
         return "add-balloon";
     }
     @PostMapping("/orders")
-    public String getOrdersPage(Model model){
+    public String getOrdersPage(Model model,HttpSession session){
+        //String clientName = (String) session.getAttribute("clientName");
+      //  System.out.println(session.getAttributeNames().toString());
         model.addAttribute("orders", orderService.getAllOrders());
+        model.addAttribute("clientName", (String)session.getAttribute("clName"));
+        model.addAttribute("clientAddress", (String)session.getAttribute("clAddress"));
         return "userOrders";
     }
 }

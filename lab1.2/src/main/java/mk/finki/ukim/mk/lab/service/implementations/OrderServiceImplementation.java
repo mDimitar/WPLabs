@@ -17,8 +17,8 @@ public class OrderServiceImplementation implements OrderService{
     }
 
     @Override
-    public Order placeOrder(String balloonColor, String clientName, String address) {
-        Order obj = new Order(balloonColor,null,clientName,address,null);
+    public Order placeOrder(String balloonColor, String clientName, String address, String size) {
+        Order obj = new Order(balloonColor,size,clientName,address,null);
         orderRepository.addNewOrders(obj);
         return obj;
     }
